@@ -10,11 +10,16 @@ namespace Domain
 
     public abstract class Person
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Sex Sex { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Phone { get; set; }
+        public Person()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
+        public string? Id { get; }
+        public string? Name { get; }
+        public Sex Sex { get; }
+        public string? Address { get; }
+        public string? Phone { get; }
     }
 
     public enum JenisSampah
@@ -27,10 +32,10 @@ namespace Domain
 
     public class Sampah
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public JenisSampah JenisSampah { get; set; }
+        public int Id { get; }
+        public string? Name { get; }
+        public string? Description { get; }
+        public JenisSampah JenisSampah { get; }
     }
 
 
@@ -44,9 +49,40 @@ namespace Domain
 
     public class Petugas : Person
     {
-        [NotMapped]
-        public override string Address { get => base.Address; set => base.Address = value; }
-        [NotMapped]
-        public override string Phone { get => base.Phone; set => base.Phone = value; }
+    }
+
+    public class Gudang
+    {
+        public Gudang(int sampahId)
+        {
+            SampahId = sampahId;
+        }
+
+        private int stock;
+        public int Id { get; }
+        public int SampahId { get; }
+        public int Stock
+        {
+            get
+            {
+                return stock;
+            }
+        }
+
+        public void AddStock(int total)
+        {
+            if (total > 0)
+            {
+                stock += total;
+            }
+        }
+
+        public void RemoveStock(int total)
+        {
+            if (total > 0)
+            {
+                stock -= total;
+            }
+        }
     }
 }
