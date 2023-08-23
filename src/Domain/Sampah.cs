@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain
+﻿namespace Domain
 {
     public enum Sex
     {
@@ -18,7 +16,7 @@ namespace Domain
             Sex = sex;
         }
 
-        public Person(string name, Sex sex, string address, string phone) : this(name, sex)
+        public Person(string name, Sex sex, Address address, string phone) : this(name, sex)
         {
             Address = address;
             Phone = phone;
@@ -27,7 +25,7 @@ namespace Domain
         public string? Id { get; protected set; }
         public string? Name { get; }
         public Sex Sex { get; }
-        public string? Address { get; }
+        public Address? Address { get; }
         public string? Phone { get; }
 
         /// <summary>
@@ -37,6 +35,14 @@ namespace Domain
         {
             Id = Guid.NewGuid().ToString();
         }
+    }
+
+    // Try Complex AutoMapper
+    public class Address
+    {
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
     }
 
     public enum JenisSampah
@@ -65,7 +71,7 @@ namespace Domain
 
     public class Nasabah : Person
     {
-        public Nasabah(string name, Sex sex, string address, string phone) : base(name, sex, address, phone)
+        public Nasabah(string name, Sex sex, Address address, string phone) : base(name, sex, address, phone)
         {
         }
 
@@ -77,7 +83,7 @@ namespace Domain
 
     public class Pengepul : Person
     {
-        public Pengepul(string name, Sex sex, string address, string phone) : base(name, sex, address, phone)
+        public Pengepul(string name, Sex sex, Address address, string phone) : base(name, sex, address, phone)
         {
         }
 
